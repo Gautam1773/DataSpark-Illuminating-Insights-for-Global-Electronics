@@ -1,0 +1,77 @@
+CREATE TABLE Quantity_Sold_by_Product AS
+SELECT 
+    "Product Name", 
+    SUM("Quantity") AS Total_Quantity_Sold
+FROM 
+    merged_all
+GROUP BY 
+    "Product Name"
+ORDER BY 
+    Total_Quantity_Sold DESC;
+
+	CREATE TABLE Sales_by_Currency AS 
+SELECT 
+    "Currency Code", 
+    SUM("Unit Price USD" * "Quantity") AS Total_Sales 
+FROM 
+    merged_all 
+GROUP BY 
+    "Currency Code";
+	CREATE TABLE Product_Sales_Count AS 
+SELECT 
+    "Product Name", 
+    COUNT(*) AS Sales_Count 
+FROM 
+    merged_all 
+GROUP BY 
+    "Product Name" 
+ORDER BY 
+    Sales_Count DESC;
+	CREATE TABLE Average_Order_Value AS
+SELECT 
+    AVG("Unit Price USD" * "Quantity") AS Average_Order_Value
+FROM 
+    merged_all;
+	CREATE TABLE Sales_by_State AS
+SELECT 
+    "State_x", 
+    SUM("Unit Price USD" * "Quantity") AS Total_Sales
+FROM 
+    merged_all
+GROUP BY 
+    "State_x";
+CREATE TABLE Sales_by_Category AS
+SELECT 
+    "Category", 
+    SUM("Unit Price USD" * "Quantity") AS Total_Sales
+FROM 
+    merged_all
+GROUP BY 
+    "Category";
+	CREATE TABLE Top_Customers_by_TotalSpend AS
+SELECT 
+    "Name", 
+    SUM("Unit Price USD" * "Quantity") AS Total_Spend
+FROM 
+    merged_all
+GROUP BY 
+    "Name"
+ORDER BY 
+    Total_Spend DESC
+LIMIT 5;
+CREATE TABLE Total_Sales_by_Product AS 
+SELECT "Product Name", 
+       SUM("Unit Price USD" * "Quantity") AS Total_Sales 
+FROM merged_all 
+GROUP BY "Product Name" 
+ORDER BY Total_Sales DESC 
+LIMIT 5;
+CREATE TABLE Sales_by_Gender AS
+SELECT 
+    "Gender",
+    SUM("Unit Price USD" * "Quantity") AS Total_Sales
+FROM 
+    merged_all
+GROUP BY 
+    "Gender";
+	
